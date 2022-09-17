@@ -20,10 +20,10 @@ export default function Home() {
   // append single task to storeTask array on submit
   const addTask = (e) =>{
     e.preventDefault();
-
     const singleTask = [...task]
+
     if (task !== '') {
-      if(singleTask.indexOf(task) === -1 ){
+      if(storeTask.indexOf(task) === -1 ){
         console.log('duplicate not found');
         setStoreTask([...storeTask, task])
       }else{
@@ -34,6 +34,11 @@ export default function Home() {
     }
     taskRef.current.value = ''
   }
+  const deleteTask = (toDelete) => {
+    setStoreTask(item => item.filter(itemToDelete => itemToDelete !== toDelete))
+    // storeTask.filter(item => item !== toDelete)
+  }
+  console.log(taskRef)
   return (
     <>
     <Head>
@@ -49,9 +54,9 @@ export default function Home() {
       <span className={styles.error}>{ err }</span>
       {
         storeTask.map(data => (
-          <div className={styles.task}key={data}>
+          <div className={styles.task} key={data}>
             <p >{ data }</p>
-              <Image src={trash} height={50} width={50} alt="trash task" onClick={() => console.log(data)}/>
+              <Image src={trash} height={50} width={50} alt="trash task" onClick={() => deleteTask(task)}/>
           </div>
         ))
       }
